@@ -1,0 +1,52 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.8
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/rcauth-eu/aarc-master-portal:
+      branch: 0.2.3-release
+      repo: https://github.com/rcauth-eu/aarc-master-portal
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/rcauth-eu/aarc-master-portal git:
+        commands:
+        - /usr/bin/env sh .sqa/script.cranky-lavender-tiger.sh
+        container: qc.acc_lousy-periwinkle-koala
+  QC.Doc:
+    repos:
+      github.com/rcauth-eu/aarc-master-portal find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.blurry-sapphire-mastiff.sh
+        container: qc.doc_ugly-bistre-mist
+      github.com/rcauth-eu/aarc-master-portal git:
+        commands:
+        - /usr/bin/env sh .sqa/script.lousy-bronze-bullfrog.sh
+        container: qc.doc_seedy-heliotrope-bullfrog
+      github.com/rcauth-eu/aarc-master-portal markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.muggy-purple-snake.sh
+        container: qc.doc_flaky-orchid-zorse
+  QC.Lic:
+    repos:
+      github.com/rcauth-eu/aarc-master-portal licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.gloppy-platinum-wrasse.sh
+        container: qc.lic_homely-blue-bobcat
+  QC.Sty:
+    repos:
+      github.com/rcauth-eu/aarc-master-portal checkstyle:
+        commands:
+        - /usr/bin/env sh .sqa/script.wimpy-chestnut-turtle.sh
+        container: qc.sty_frumpy-cream-whale
+  QC.Ver:
+    repos:
+      github.com/rcauth-eu/aarc-master-portal get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.lousy-ultramarine-bulldog.sh
+        container: qc.ver_cranky-pumpkin-camel
+timeout: 5400
